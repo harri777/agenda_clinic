@@ -1,13 +1,50 @@
 import React from "react";
 import dateFns from "date-fns";
+import _ from "lodash";
 
 import './Main.css'
+
+let appointments = [
+	{
+	  id: 1,
+	  created_at: 1538587923916,
+	  updated_at: 1538587923916,
+	  title: 'background',
+	  date: '2018-08-30T22:56:01.306Z',
+	  start_time: '16:21',
+	  end_time: '16:51'
+	},
+	{
+		id: 222,
+		created_at: 1538587923916,
+		updated_at: 1538587923916,
+		title: 'background2222',
+		date: '2018-08-30T22:56:01.306Z',
+		start_time: '16:21',
+		end_time: '16:51'
+	},	
+	{
+	  id: 20,
+	  created_at: 1538587923917,
+	  updated_at: 1538587923917,
+	  title: 'transitional',
+	  date: '2018-08-29T15:17:05.798Z',
+	  start_time: '08:59',
+	  end_time: '09:29'
+	}
+];
 
 class MainView extends React.Component {
   state = {
     currentWeek: new Date(),
     selectedDate: new Date()
   };
+
+  	componentWillMount = () => {
+		appointments = _.groupBy(appointments, function (i) {
+			return dateFns.format(i.date, 'DD/MM/YYYY');
+		});
+  	}
 
   renderHeader() {
     const dateFormat = "MMMM YYYY";
@@ -46,9 +83,15 @@ class MainView extends React.Component {
     return <div className="days row">{days}</div>;
   }
 
-  renderCompromissos = (day) => {
-
-  }
+  	renderAppointments = (day) => {
+		if(appointments[day] !== undefined){
+			appointments[day].map((item, index) => {
+				return (
+					<h2>mozao</h2>
+				)}
+			)
+		}
+  	}
 
   renderCells() {
     const { currentWeek, selectedDate } = this.state;
@@ -69,7 +112,6 @@ class MainView extends React.Component {
 		formattedDate = dateFns.format(day, dateFormat);
 		let formattedDate2 = dateFns.format(day, 'DD/MM/YYYY');
 		const cloneDay = day;
-		console.log(formattedDate2)
         days.push(
           <div
             className={`col cell ${
@@ -84,10 +126,34 @@ class MainView extends React.Component {
             <span className="bg">{formattedDate}</span>
 
 			{/* {ADICIONAR LÓGICA DE ITEMS AQUI} */}
-			{formattedDate2 === '12/11/2018' && (
-				<div><h2>lol</h2></div>
-			)}
-			
+			{appointments[formattedDate2] !== undefined && (
+				appointments[formattedDate2].map((item, index) => {
+					return (
+						<div Style="    width: 90%;
+						margin: 30px 5% 10% 5%;
+						background-color: #ff000014;
+						border-radius: 6px;
+						border: solid 1px red;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						padding: 10px;
+						cursor: pointer;"
+						onClick={() => console.log("teste")}>
+							<h5 Style="margin: 0px">Inicio: {item.start_time}</h5>
+							<h5 Style="margin: 0px">Fim: {item.end_time}</h5>
+							<p Style="width: 90%;
+										white-space: nowrap;
+										text-overflow: ellipsis;
+										overflow: hidden;
+										margin: 0px;
+										font-family: Muli;
+										font-size: 15px;
+										text-align: -webkit-auto;">{item.title}</p>
+						</div>		
+					)}
+				))
+			}
           </div>
         );
         day = dateFns.addDays(day, 1);
@@ -104,7 +170,7 @@ class MainView extends React.Component {
 
   onDateClick = day => {
     this.setState({
-      selectedDate: day
+    //   selectedDate: day
     });
   };
 
