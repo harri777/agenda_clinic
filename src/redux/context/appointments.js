@@ -18,11 +18,9 @@ export const getAppointments = () => (
     (dispatch: Dispatch) => {
         dispatch({ type: APPOINTMENTS });
         Api.get("events", {
-            // data,
             header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
         } , true).then
             (res => {
-                console.log(res)
                 dispatch({
                     type: APPOINTMENTS_SUCCESS,
                     data: res,

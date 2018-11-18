@@ -110,8 +110,6 @@ class MainView extends React.Component {
 		}
 	}
 	  
-
-
   	render() {
 		const { appointments } = this.state;
     	return (

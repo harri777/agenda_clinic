@@ -14,6 +14,7 @@ class Calendar extends React.Component {
         selectedDate: new Date(),
 		appointments: [],
 		open: false,
+		edit: false
     };
       
     componentWillReceiveProps = (nextProps) => {
@@ -97,7 +98,7 @@ class Calendar extends React.Component {
 						{appointments[formattedDate2] !== undefined && (
 							appointments[formattedDate2].map((item, index) => {
 								return (
-									<Appointments key={index} item={item} />	
+									<Appointments key={index} item={item} edit={this.state.edit}/>	
 								)}
 							))
 						}
@@ -148,7 +149,10 @@ class Calendar extends React.Component {
 	}
 
 	onAddNewAppointment = () => {
-		this.setState({open: true})
+		this.setState({
+			open: true,
+			edit: false	
+		})
 	}
 }
 
