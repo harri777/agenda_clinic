@@ -10,7 +10,7 @@ const customContentStyle = {
 	maxWidth: 'none',
   };
 
-let appointments = [
+let appointmentsMOCK = [
 	{
 		id: 1,
 		created_at: 1538587923916,
@@ -97,16 +97,23 @@ let appointments = [
 class MainView extends React.Component {
 	state = {
 		currentMonth: new Date(),
-		selectedDate: new Date()
+		selectedDate: new Date(),
+		appointments: []
 	};
 
-  	componentWillMount = () => {
-		appointments = _.groupBy(appointments, function (i) {
-			return dateFns.format(i.date, 'DD/MM/YYYY');
-		});
-  	}
+	componentWillReceiveProps = (nextProps) => {
+		if(nextProps !== undefined){
+			const _appointments = _.groupBy(nextProps.appointments, function (i) {
+				return dateFns.format(i.date, 'DD/MM/YYYY');
+			})	
+			this.setState({appointments: _appointments})
+		}
+	}
+	  
+
 
   	render() {
+		const { appointments } = this.state;
     	return (
       		<div className="calendar">
 			  	<Calendar appointments={appointments} />

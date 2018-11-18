@@ -1,12 +1,12 @@
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
-import mainReducer from './context/main';
+import appointmentsReducer from './context/appointments';
 
 
 
 export default function contextReducer(passedState: ContextState = Immutable({}), action: Action) {
     const state = _.reduce([
-        mainReducer,
+        appointmentsReducer,
     ], (s, reducer) => reducer(s, action), passedState);
   
     switch (action.type) {  
