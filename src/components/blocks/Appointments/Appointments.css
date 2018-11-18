@@ -1,0 +1,21 @@
+.appointments_container {
+  width: 90%;
+  margin: 30px 5% 10% 5%;
+  background-color: #ffa50026;
+  border-radius: 6px;
+  border: solid 1px orange;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  cursor: pointer;
+  position: relative; }
+
+.appointments_container .title {
+  width: 90%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0px;
+  font-family: Arial;
+  font-size: 15px;
+  text-align: -webkit-auto; }

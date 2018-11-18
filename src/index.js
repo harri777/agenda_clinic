@@ -21,10 +21,11 @@ import history from './history';
 const initialState = fetchInitialState(window.__INITIAL_STATE__);
 const store = configureStore(initialState, history);
 
-// WebFont.load({
-//   google: {
-//     families: ['Kalam', 'sans-serif']
-//   }
+WebFont.load({
+  google: {
+    families: ['Muli']
+  }
+});
 
 
 ReactDOM.render(  
