@@ -20,7 +20,6 @@ class MessageBox extends React.Component {
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-
 		if(nextProps.item !== undefined){
 			this.setState({
 				title: nextProps.item.title,
@@ -56,7 +55,7 @@ class MessageBox extends React.Component {
 			  onClick={this.handleClose}
 			/>,
 			<FlatButton
-			  label="Submit"
+			  label="SAVE"
 			  primary={true}
 			  keyboardFocused={true}
 			  onClick={this.onSave}
@@ -119,14 +118,17 @@ class MessageBox extends React.Component {
 			update
 		} = this.state;
 
+		const _date = dateFns.addDays(date, 1)
+
 		const data = { 
 			title,
-			date,
-			startTime,
-			endTime,
+			date: dateFns.format(_date, 'YYYY-MM-DD'),
+			start_time: dateFns.format(startTime, 'HH:mm'),
+			end_time: dateFns.format(endTime, 'HH:mm'),
 			update
 		}
 
+		this.props.onSaveAppointments(data);
 		console.log(data)
 	}
 

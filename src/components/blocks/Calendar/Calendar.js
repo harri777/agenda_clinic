@@ -143,7 +143,7 @@ class Calendar extends React.Component {
         		{this.renderHeader()}
         		{this.renderDays()}
 				{this.renderCells()}
-				<MessageBox open={this.state.open} />
+				<MessageBox open={this.state.open} onSaveAppointments={this.props.saveAppointments} />
       		</div>	  
     	);
 	}

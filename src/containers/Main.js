@@ -28,14 +28,19 @@ class Main extends Component {
     render() {
         const { appointments } = this.state;
         return (
-            <MainView appointments={appointments} />
+            <MainView appointments={appointments} onSaveAppointments={this.handleSaveAppointment} />
         )
+    }
+
+    handleSaveAppointment = (data) => {
+        const { dispatch } = this.props;
+        dispatch(appointmentsActions.insertAppointments(data));
     }
 
 }
 
 const mapStateToProps = (state) => ({
-    appointments: state.context.appointments,
+    appointments: state.context.appointments
 });
   
 const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch });
