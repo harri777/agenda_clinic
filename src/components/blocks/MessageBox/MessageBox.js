@@ -16,16 +16,18 @@ class MessageBox extends React.Component {
 		date: '',
 		startTime: '',
 		endTime: '',
+		id: null,
 		update: false,
 	}
 
 	componentWillReceiveProps = (nextProps) => {
 		if(nextProps.item !== undefined){
 			this.setState({
+				id: nextProps.item.id,
 				title: nextProps.item.title,
-				date: nextProps.item.date,
-				startTime: nextProps.item.start_time,
-				endTime: nextProps.item.end_time,
+				date: dateFns.parse(nextProps.item.date),
+				startTime: nextProps.item.startTime,
+				endTime: nextProps.item.endTime,
 				update: true,
 				open: false
 			})
@@ -71,21 +73,23 @@ class MessageBox extends React.Component {
 				// contentStyle={customContentStyle}
 				onRequestClose={this.handleClose}
 			>
-				<div Style="width: 100%; display: flex">
-					<TextField id="title" value={this.state.title} onChange={this.onChange} hintText="Title" floatingLabelText="Title" />
-					<DatePicker value={this.state.date} onChange={this.onChangeDate} style={{marginLeft: 15}} floatingLabelText="Date" hintText="Portrait Dialog"/><br />
-				</div>
-				<div Style="width: 100%; display: flex">
-					<TimePicker onChange={this.onChangeStartTime} value={this.state.startTime} format="24hr" hintText="Start Hour" />
-					<TimePicker onChange={this.onChangeEndTime} value={this.state.endTime} style={{marginLeft: 15}} format="24hr" hintText="End Hour" />
-				</div>
+				<div id="container" Style="overflow: hidden">
+					<div Style="width: 100%; display: flex">
+						<TextField id="title" value={this.state.title} onChange={this.onChange} hintText="Title" floatingLabelText="Title" />
+						<DatePicker value={this.state.date} onChange={this.onChangeDate} style={{marginLeft: 15}} floatingLabelText="Date" hintText="Portrait Dialog"/><br />
+					</div>
+					<div Style="width: 100%; display: flex">
+						<TimePicker onChange={this.onChangeStartTime} value={this.state.startTime} format="24hr" hintText="Start Hour" />
+						<TimePicker onChange={this.onChangeEndTime} value={this.state.endTime} style={{marginLeft: 15}} format="24hr" hintText="End Hour" />
+					</div>
+				</div>	
 				<br />
 			</Dialog>
     	);
 	}
 
 	onChange = (event: Any) => {
-        this.setState({[event.target.id] : event.target.value})  
+        this.setState({[event.target.id]: event.target.value})  
 	}
 
 	onChangeDate = (e: Any, date: String) => {
@@ -115,21 +119,25 @@ class MessageBox extends React.Component {
 			date,
 			startTime,
 			endTime,
-			update
+			update,
+			id,
 		} = this.state;
 
-		const _date = dateFns.addDays(date, 1)
-
 		const data = { 
+			id,
 			title,
-			date: dateFns.format(_date, 'YYYY-MM-DD'),
+			date: dateFns.format(date, 'YYYY-MM-DD'),
 			start_time: dateFns.format(startTime, 'HH:mm'),
 			end_time: dateFns.format(endTime, 'HH:mm'),
 			update
 		}
 
-		this.props.onSaveAppointments(data);
-		console.log(data)
+		if(update)
+			this.props.onUpdateAppointments(data);
+		else
+			this.props.onSaveAppointments(data);
+
+		this.handleClose();		
 	}
 
 }

@@ -2,6 +2,7 @@ import urlApi from '../../config/api';
 import Api from '../../helpers/api'; 
 import history from '../../history';
 import { push } from 'react-router-redux'
+import dateFns, { getHours } from "date-fns";
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -10,9 +11,9 @@ const GET_APPOINTMENTS = 'appointments.GET_APPOINTMENTS';
 const GET_APPOINTMENTS_SUCCESS = 'appointments.GET_APPOINTMENTS_SUCCESS';
 const GET_APPOINTMENTS_FAILED = 'appointments.GET_APPOINTMENTS_FAILED';
 
-const INSERT_APPOINTMENTS = 'appointments.INSERT_APPOINTMENTS';
-const INSERT_APPOINTMENTS_SUCCESS = 'appointments.INSERT_APPOINTMENTS_SUCCESS';
-const INSERT_APPOINTMENTS_FAILED = 'appointments.INSERT_APPOINTMENTS_FAILED';
+const CREATE_APPOINTMENTS = 'appointments.CREATE_APPOINTMENTS';
+const CREATE_APPOINTMENTS_SUCCESS = 'appointments.CREATE_APPOINTMENTS_SUCCESS';
+const CREATE_APPOINTMENTS_FAILED = 'appointments.CREATE_APPOINTMENTS_FAILED';
 
 const UPDATE_APPOINTMENTS = 'appointments.UPDATE_APPOINTMENTS';
 const UPDATE_APPOINTMENTS_SUCCESS = 'appointments.UPDATE_APPOINTMENTS_SUCCESS';
@@ -33,10 +34,26 @@ export const getAppointments = () => (
             header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
         } , true).then
             (res => {
-                dispatch({
-                    type: GET_APPOINTMENTS_SUCCESS,
-                    data: res,
-                });
+                console.log(res)
+                if(res.status === 200){ 
+                    addSecondsToTimerWithZero(res.data).then(
+                        (result) => {
+                            dispatch({
+                                type: GET_APPOINTMENTS_SUCCESS,
+                                data: {
+                                    data: result
+                                },
+                            });
+                        }
+                    )
+                } else {
+                    dispatch({
+                        type: GET_APPOINTMENTS_SUCCESS,
+                        data: {
+                            data: []
+                        },
+                    });
+                }       
             })
         .catch(error => {
             console.log(error)
@@ -50,9 +67,9 @@ export const getAppointments = () => (
 );
 
 
-export const insertAppointments = (data: Object) => (
+export const createAppointments = (data: Object) => (
     (dispatch: Dispatch) => {
-        dispatch({ type: INSERT_APPOINTMENTS });
+        dispatch({ type: CREATE_APPOINTMENTS });
         Api.post("events", {
             data,
             header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
@@ -60,14 +77,14 @@ export const insertAppointments = (data: Object) => (
             (res => {
                 console.log(res)
                 dispatch({
-                    type: INSERT_APPOINTMENTS_SUCCESS,
+                    type: CREATE_APPOINTMENTS_SUCCESS,
                     data: res,
                 });
             })
         .catch(error => {
             console.log(error)
             dispatch({
-                type: INSERT_APPOINTMENTS_FAILED,
+                type: CREATE_APPOINTMENTS_FAILED,
                 error: error,
             });
             
@@ -75,23 +92,58 @@ export const insertAppointments = (data: Object) => (
     }
 );
 
-// const getData = (data) => new Promise((resolve, reject) => {
-//     Api.post(``, {
-//         data,
-//         header: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-//     }, false).then
-//         (response => {
-//             return resolve(response);
-//         })
-//     .catch(error => {
-//         console.log(error)
-//         return reject(error)
-//     });
-// })
+
+export const updateAppointments = (data: Object) => (
+    (dispatch: Dispatch) => {
+        dispatch({ type: UPDATE_APPOINTMENTS });
+        Api.put(`events/${data.id}`, {
+            data,
+            header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+        } , true).then
+            (res => {
+                console.log(res)
+                dispatch({
+                    type: UPDATE_APPOINTMENTS_SUCCESS,
+                    data: res,
+                });
+            })
+        .catch(error => {
+            console.log(error)
+            dispatch({
+                type: UPDATE_APPOINTMENTS_FAILED,
+                error: error,
+            });
+            
+        });
+    }
+);
+
+
+const addSecondsToTimerWithZero = (data: Object) => new Promise((resolve, reject) => {
+    let result = [];
+    let date = '';
+    data.forEach (function (item) {
+        let ISOHour = item.date.substring(10, 24);
+        if(ISOHour === "T00:00:00.000Z"){
+            date = dateFns.addDays(item.date, 1)
+        } else {
+            date = item.date
+        }
+        result.push({
+            id: item.id,
+            title: item.title,
+            start_time: item.start_time,
+            end_time: item.end_time,
+            date,
+        })
+    });
+    return resolve(result);
+})
 
 export const appointmentsActions = {
     getAppointments,
-    insertAppointments
+    createAppointments,
+    updateAppointments
 };
 
 export default function appointmentsReducer (state, action): ContextState {
@@ -105,7 +157,9 @@ export default function appointmentsReducer (state, action): ContextState {
             return state
             .setIn(['appointments', 'isLoading'], false)
             .setIn(['appointments', 'errors'], null)
-            .setIn(['appointments', 'data'], action.data);
+            .setIn(['appointments', 'data'], action.data)
+            .setIn(['appointments', 'lastCreated', 'data'], [])
+            .setIn(['appointments', 'lastUpdated', 'data'], []);
   
         case GET_APPOINTMENTS_FAILED:
             return state
@@ -113,18 +167,34 @@ export default function appointmentsReducer (state, action): ContextState {
             .setIn(['appointments', 'errors'], [action.error.message]);
 
 
-        case INSERT_APPOINTMENTS:
+        case CREATE_APPOINTMENTS:
             return state
             .setIn(['appointments', 'isLoading'], true)
             .setIn(['appointments', 'errors'], null);
   
-        case INSERT_APPOINTMENTS_SUCCESS:
+        case CREATE_APPOINTMENTS_SUCCESS:
             return state
             .setIn(['appointments', 'isLoading'], false)
             .setIn(['appointments', 'errors'], null)
-            .setIn(['appointments', 'insertLasted', 'data'], action.data);
+            .setIn(['appointments', 'lastCreated', 'data'], action.data);
   
-        case INSERT_APPOINTMENTS_FAILED:
+        case CREATE_APPOINTMENTS_FAILED:
+            return state
+            .setIn(['appointments', 'isLoading'], false)
+            .setIn(['appointments', 'errors'], [action.error.message]);
+
+        case UPDATE_APPOINTMENTS:
+            return state
+            .setIn(['appointments', 'isLoading'], true)
+            .setIn(['appointments', 'errors'], null);
+  
+        case UPDATE_APPOINTMENTS_SUCCESS:
+            return state
+            .setIn(['appointments', 'isLoading'], false)
+            .setIn(['appointments', 'errors'], null)
+            .setIn(['appointments', 'lastUpdated', 'data'], action.data);
+  
+        case UPDATE_APPOINTMENTS_FAILED:
             return state
             .setIn(['appointments', 'isLoading'], false)
             .setIn(['appointments', 'errors'], [action.error.message]);

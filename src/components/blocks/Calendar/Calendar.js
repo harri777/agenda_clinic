@@ -4,7 +4,7 @@ import _ from "lodash";
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { Appointments, MessageBox } from '../'
+import { Appointments, MessageBox } from '../';
 
 import './Calendar.css'
 
@@ -98,7 +98,7 @@ class Calendar extends React.Component {
 						{appointments[formattedDate2] !== undefined && (
 							appointments[formattedDate2].map((item, index) => {
 								return (
-									<Appointments key={index} item={item} edit={this.state.edit}/>	
+									<Appointments key={index} item={item} edit={this.state.edit} onUpdateAppointments={this.updateAppointments}/>	
 								)}
 							))
 						}
@@ -143,16 +143,27 @@ class Calendar extends React.Component {
         		{this.renderHeader()}
         		{this.renderDays()}
 				{this.renderCells()}
-				<MessageBox open={this.state.open} onSaveAppointments={this.props.saveAppointments} />
+				<MessageBox 
+					open={this.state.open}
+					onSaveAppointments={this.saveAppointments} />
       		</div>	  
     	);
+	}
+
+	updateAppointments = (data) => {
+		this.props.updateAppointments(data);
+	}
+
+	saveAppointments = (data) => {
+		this.setState({open: false});
+		this.props.saveAppointments(data);
 	}
 
 	onAddNewAppointment = () => {
 		this.setState({
 			open: true,
 			edit: false	
-		})
+		});
 	}
 }
 

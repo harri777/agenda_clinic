@@ -1,5 +1,5 @@
 import React from "react";
-import dateFns from "date-fns";
+import dateFns, { getHours } from "date-fns";
 import _ from "lodash";
 import { Calendar } from '../../blocks'
 
@@ -103,7 +103,8 @@ class MainView extends React.Component {
 
 	componentWillReceiveProps = (nextProps) => {
 		if(nextProps !== undefined){
-			const _appointments = _.groupBy(nextProps.appointments, function (i) {
+			let order = _.orderBy(nextProps.appointments, 'start_time', 'asc');
+			const _appointments = _.groupBy(order, function (i) {
 				return dateFns.format(i.date, 'DD/MM/YYYY');
 			})	
 			this.setState({appointments: _appointments})
@@ -114,7 +115,10 @@ class MainView extends React.Component {
 		const { appointments } = this.state;
     	return (
       		<div className="calendar">
-			  	<Calendar appointments={appointments} saveAppointments={this.props.onSaveAppointments}/>
+				<Calendar 
+				  appointments={appointments}
+				  saveAppointments={this.props.onSaveAppointments}
+				  updateAppointments={this.props.onUpdateAppointments}/>
       		</div>	  
     	);
 	}

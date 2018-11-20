@@ -85,7 +85,7 @@ export function post(path, params = {}) {
 
 export function put(path, params = {}) {
   Log.debug('API: PUT to ' + path + ' query: ' + stringifyData(params.query || '') + ' data: ' + stringifyData(params.data || ''));
-  return axios.put(path, params.data, {
+  return axios.put(urlApi.value + path, params.data, {
     params: params.query,
   })
     .then((response) => {
@@ -109,7 +109,7 @@ export function put(path, params = {}) {
 // method is named 'destroy' on purpose since it is not possible to use 'delete'
 export function destroy(path, params = {}) {
   Log.debug('API: delete to ' + path + ' query: ' + stringifyData(params.query || '') + ' data: ' + stringifyData(params.data || ''));
-  return axios.delete(path, {
+  return axios.delete(urlApi.value + path, {
     data: params.data || {}, // hack to keep Content-Type header in request: https://github.com/mzabriskie/axios/issues/86#issuecomment-139638284
     params: params.query,
   })
@@ -133,10 +133,11 @@ export function destroy(path, params = {}) {
 
 export function patch(path, params = {}) {
   Log.debug('API: PATCH to ' + path + ' query: ' + stringifyData(params.query || '') + ' data: ' + stringifyData(params.data || ''));
-  return axios.patch(path, params.data, {
+  return axios.patch(urlApi.value + path, params.data, {
     params: params.query,
   })
     .then((response) => {
+      // console.log(response)
       // success callback
       if (params.success) {
         params.success(response.data);
