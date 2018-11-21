@@ -38,7 +38,7 @@ class MessageBox extends React.Component {
 				errorDate: '',
 				errorStartTime: '',
 				errorEndTime: ''
-			})
+			});
 		} else {
 			this.setState({
 				title: '',
@@ -51,11 +51,11 @@ class MessageBox extends React.Component {
 				errorDate: '',
 				errorStartTime: '',
 				errorEndTime: ''
-			})
+			});
 		}
 
 		if(nextProps.open !== undefined){
-			this.setState({open: nextProps.open})
+			this.setState({open: nextProps.open});
 		}
 	} 
 
@@ -141,7 +141,7 @@ class MessageBox extends React.Component {
         let erros = false;
     
         if(title === ''){
-            this.setState({ errorTitle: 'Is required' })
+            this.setState({ errorTitle: 'Is required' });
             erros = true;
         } else {
 			this.setState({ 
@@ -150,54 +150,54 @@ class MessageBox extends React.Component {
 		}
         
         if(date === ''){
-            this.setState({ errorDate: 'Is required' }) 
+            this.setState({ errorDate: 'Is required' });
             erros = true;
         } else {
-            this.setState({ errorDate: '' }) 
+            this.setState({ errorDate: '' });
 		}
 		
 		if(startTime === ''){
-            this.setState({ errorStartTime: 'Is required' }) 
+            this.setState({ errorStartTime: 'Is required' });
             erros = true;
         } else {
-            this.setState({ errorStartTime: '' }) 
+            this.setState({ errorStartTime: '' });
 		}
 		
 		if(endTime === ''){
-            this.setState({ errorEndTime: 'Is required' }) 
+            this.setState({ errorEndTime: 'Is required' });
             erros = true;
         } else {
-            this.setState({ errorEndTime: '' }) 
+            this.setState({ errorEndTime: '' });
 		}
 
 		if(endTime < startTime){
-			this.setState({ errorEndTime: 'End time must be greater than start time' }) 
+			this.setState({ errorEndTime: 'End time must be greater than start time' });
             erros = true;
 		} else {
-			this.setState({ errorEndTime: '' }) 
+			this.setState({ errorEndTime: '' });
 		}
 
         if(!erros){
-			this.setState({open: false})
+			this.setState({open: false});
 			return true;
 		}
            
     }
 
 	onChange = (event: Any) => {
-        this.setState({[event.target.id]: event.target.value})  
+        this.setState({[event.target.id]: event.target.value});
 	}
 
 	onChangeDate = (e: Any, date: String) => {
-        this.setState({date})  
+        this.setState({date});
 	}
 	
 	onChangeStartTime = (e, startTime) => {
-		this.setState({startTime}) 
+		this.setState({startTime});
 	}
 
 	onChangeEndTime = (e, endTime) => {
-		this.setState({endTime})
+		this.setState({endTime});
 	}
 
 	onDelete = (id: String) => {
@@ -225,7 +225,7 @@ class MessageBox extends React.Component {
 			start_time: dateFns.format(startTime, 'HH:mm'),
 			end_time: dateFns.format(endTime, 'HH:mm'),
 			update
-		}
+		};
 
 		if(this.validFields(title, date, startTime, endTime)){
 			if(update)

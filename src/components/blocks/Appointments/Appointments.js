@@ -13,7 +13,7 @@ class Appointments extends React.Component {
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.edit === false){
-            this.setState({open: false})
+            this.setState({open: false});
         }
     }
 
@@ -43,21 +43,21 @@ class Appointments extends React.Component {
 
     renderTimer = (timer: String) => {
         let concatTimer = new Date().toDateString() + ' ' + timer;
-        concatTimer = new Date(concatTimer)
+        concatTimer = new Date(concatTimer);
         return concatTimer;
 
     }
     
     onClick = (item: Object) => {
-        this.setState({ open: true, item })
+        this.setState({ open: true, item });
     }
 
     updateAppointments = (data: Object) => {
-        this.props.onUpdateAppointments(data)
+        this.props.onUpdateAppointments(data);
     }
 
     deleteAppointments = (id: String) => {
-        this.props.onDeleteAppointments(id)
+        this.props.onDeleteAppointments(id);
     }
 
 }

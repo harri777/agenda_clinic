@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable';
 
-// it safe to modify the passed initialState here
 export default function fetchInitialState (initialState = {}) {
     try {
         const storedState = JSON.parse(

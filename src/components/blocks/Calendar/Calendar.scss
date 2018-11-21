@@ -1,43 +1,11 @@
 @import "../../../assets/variables.scss";
-
-
-.icon {
-    font-family: 'Material Icons', serif;
-    font-style: normal;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-  
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: 'liga';
+  /* GENERAL */
+* {
+    box-sizing: border-box;
 }
   
-  
-  /* VARIABLES */
-  
-  :root {
-    // $main-color: #1a8fff;
-    // --text-color: #777;
-    // $text-color-light: #ccc;
-    // $border-color: #ee$bg-color #f9f9f9;
-    $neutral-color: #fff;
-  }
-  
-  
-  /* GENERAL */
-  * {
-    box-sizing: border-box;
-  }
-  
 body {
-	font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	font-family: $main-font;
 	font-size: 1em;
 	font-weight: 300;
 	line-height: 1.5;
@@ -285,6 +253,7 @@ main {
 }
 
 .div-dates {
+	font-family: $main-font;
 	// iPhone 5 & 5S in portrait & landscape
 	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
 		font-size: 10px;
@@ -317,6 +286,7 @@ main {
 }
 
 .center-date {
+	font-family: $main-font;
 	// iPhone 5 & 5S in portrait & landscape
 	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
 		font-size: 10px;

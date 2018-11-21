@@ -7,11 +7,6 @@ export default store => next => action => {
     return next(action);
   }
 
-//   const { type } = action;
-//   if ((type === auth.AUTH_LOGGED_OUT) || (type === '@@router/UPDATE_PATH')) {
-//     return next(action);
-//   }
-
   next(action);
 
   Log.debug('DUMP: Dumping to local store...\n----------------------------------------------------------------------------');

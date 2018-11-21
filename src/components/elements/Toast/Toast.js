@@ -14,7 +14,7 @@ export default class Toast extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps !== undefined){
-            this.setState({open: nextProps.open})
+            this.setState({open: nextProps.open});
         }
     }
     
@@ -33,15 +33,7 @@ export default class Toast extends Component {
         )
     }
 
-    handleClick = () => {
-        this.setState({
-            open: true,
-        });
-    };
+    handleClick = () => { this.setState({ open: true });};
     
-    handleRequestClose = () => {
-        this.setState({
-            open: false,
-        });
-    };
+    handleRequestClose = () => { this.setState({ open: false });};
 }

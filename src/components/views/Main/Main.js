@@ -20,31 +20,34 @@ class MainView extends React.Component {
 		if(nextProps !== undefined){
 			if(nextProps.appointments.data !==  undefined){
 				if(nextProps.appointments.data.data !== undefined){
+					/* order objects startTime */
 					let order = _.orderBy(nextProps.appointments.data.data, 'start_time', 'asc');
+					/* group objects that have the same date */
 					const _appointments = _.groupBy(order, function (i) {
 						return dateFns.format(i.date, 'DD/MM/YYYY');
 					})	
-					this.setState({appointments: _appointments})
+					this.setState({appointments: _appointments});
 				}
 			}
+			
 			if(nextProps.appointments.isLoading){
-				this.setState({isLoading: true})
+				this.setState({isLoading: true});
 			} else {
-				this.setState({isLoading: false})
+				this.setState({isLoading: false});
 			}
 
+			/* SHOW Error */
 			if(nextProps.appointments.errors !== null){
 				this.setState({
 					openToast: true,
 					msgToast: 'OPS! There was a problem!',
 					appointments: []
-				}) 
+				});
 			} else {
 				this.setState({
 					openToast: false,
 					msgToast: '',
-					// appointments: []
-				}) 
+				});
 			}
 		}
 	}

@@ -4,7 +4,11 @@ import _ from "lodash";
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import IconButton from 'material-ui/IconButton';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import { Appointments, MessageBox } from '../';
+import { Colors } from '../../../assets/pallet'
 
 import './Calendar.css'
 
@@ -19,7 +23,7 @@ class Calendar extends React.Component {
       
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.appointments !== undefined)
-            this.setState({appointments: nextProps.appointments})
+            this.setState({appointments: nextProps.appointments});
     }
 
   	render() {
@@ -41,45 +45,56 @@ class Calendar extends React.Component {
     	);
 	}
 
+	 /* RENDER HEADER CALENDAR */
 	renderHeader() {
 		const dateFormat = "MMMM YYYY";
-		const dateWeek = "DD/MM/YYYY"
+		const dateWeek = "DD/MM/YYYY";
 
     	return (
 			<div className="header row flex-middle">
 				<div className="col col-start">
+					{/* PREVIOUS WEEK */}
 					<div className="arrows-btn">
-						<FlatButton onClick={this.prevMonth} style={{fontFamily: 'Muli'}} label="<" primary={true} />
+						<IconButton tooltip="Previous Week">
+							<ArrowBack onClick={this.prevMonth} color={Colors.primary}/>
+    					</IconButton>
 					</div>
 				</div>
+				{/* RENDER DATE AND CURRENT WEEK */}
 				<div className="col col-center">
-					<span className="center-date" style={{fontFamily: 'Muli'}}>{dateFns.format(this.state.currentMonth, dateFormat)}</span><br/>
+					<span className="center-date">{dateFns.format(this.state.currentMonth, dateFormat)}</span><br/>
 					<div className="div-dates">
-						<span style={{fontFamily: 'Muli'}}>{dateFns.format(dateFns.startOfWeek(this.state.currentMonth), dateWeek)}</span>
+						<span>{dateFns.format(dateFns.startOfWeek(this.state.currentMonth), dateWeek)}</span>
 						<span> - </span>
-						<span style={{fontFamily: 'Muli'}}>{dateFns.format(dateFns.endOfWeek(this.state.currentMonth), dateWeek)}</span><br/>
+						<span>{dateFns.format(dateFns.endOfWeek(this.state.currentMonth), dateWeek)}</span><br/>
 					</div>
 					
 				</div>
 				<div className="col col-end">
+					{/* NEXT WEEK */}
 					<div className="arrows-btn">
-						<FlatButton style={{fontFamily: 'Muli'}} onClick={this.nextMonth} label=">" primary={true} />
+						<IconButton tooltip="Next Week">
+							<ArrowForward onClick={this.nextMonth} color={Colors.primary}/>
+    					</IconButton>
 					</div>
 				</div>
 			</div>
     	);
   	}
 
+	/* RENDER DAYS (columns) */
   	renderDays() {
     	const dateFormat = "dddd";
     	const days = [];
 
     	let startDate = dateFns.startOfWeek(this.state.currentMonth);
 
+		/* ADD DAYS WEEK (MONDAY, ...) */
     	for (let i = 0; i < 7; i++) {
 			let day = dateFns.format(dateFns.addDays(startDate, i), dateFormat);
       		days.push(
         		<div className="col col-center" key={i}>
+					{/* SUBSTRING Days (Monday => Mon) */}	
           			{day.substring(0,3)}
         		</div>
       		);
@@ -101,11 +116,14 @@ class Calendar extends React.Component {
 		let day = startDate;
 		let formattedDate = "";
 
+		/* While end month */
     	while (day <= endDate) {
+			/* ADD DAYS WEEK */
       		for (let i = 0; i < 7; i++) {
 				formattedDate = dateFns.format(day, dateFormat);
-				let formattedDate2 = dateFns.format(day, 'DD/MM/YYYY');
+				let _formattedDate = dateFns.format(day, 'DD/MM/YYYY');
         		days.push(
+					/* Enable and disable days that are visible but are not part of the current month */
 					<div
 						className={`col cell ${
 						!dateFns.isSameMonth(day, monthStart)
@@ -117,9 +135,9 @@ class Calendar extends React.Component {
 						<span className="number">{formattedDate}</span>
 						<span className="bg">{formattedDate}</span>
 
-						{/* {LÓGICA DE ITEMS} */}
-						{appointments[formattedDate2] !== undefined && (
-							appointments[formattedDate2].map((item, index) => {
+						{/* {ADD => LIST APPOINTMENTS} */}
+						{appointments[_formattedDate] !== undefined && (
+							appointments[_formattedDate].map((item, index) => {
 								return (
 									<Appointments 
 										key={index} 
@@ -156,12 +174,9 @@ class Calendar extends React.Component {
 	prevMonth = () => {
     	this.setState({
 			currentMonth: dateFns.subWeeks(this.state.currentMonth, 1),
-			open: false
-			  
+			open: false  
     	});
   	};
-	  
-
 
 	updateAppointments = (data) => {
 		this.props.updateAppointments(data);
