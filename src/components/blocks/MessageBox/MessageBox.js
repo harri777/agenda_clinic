@@ -18,6 +18,10 @@ class MessageBox extends React.Component {
 		endTime: '',
 		id: null,
 		update: false,
+		errorTitle: '',
+		errorDate: '',
+		errorStartTime: '',
+		errorEndTime: ''
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -29,7 +33,11 @@ class MessageBox extends React.Component {
 				startTime: nextProps.item.startTime,
 				endTime: nextProps.item.endTime,
 				update: true,
-				open: false
+				open: false,
+				errorTitle: '',
+				errorDate: '',
+				errorStartTime: '',
+				errorEndTime: ''
 			})
 		} else {
 			this.setState({
@@ -38,7 +46,11 @@ class MessageBox extends React.Component {
 				startTime: '',
 				endTime: '',
 				update: false,
-				open: false
+				open: false,
+				errorTitle: '',
+				errorDate: '',
+				errorStartTime: '',
+				errorEndTime: ''
 			})
 		}
 
@@ -82,18 +94,85 @@ class MessageBox extends React.Component {
 			>
 				<div id="container" Style="overflow: hidden">
 					<div Style="width: 100%; display: flex">
-						<TextField id="title" value={this.state.title} onChange={this.onChange} hintText="Title" floatingLabelText="Title" />
-						<DatePicker value={this.state.date} onChange={this.onChangeDate} style={{marginLeft: 15}} floatingLabelText="Date" hintText="Portrait Dialog"/><br />
+						<TextField 
+							id="title"
+							value={this.state.title}
+							onChange={this.onChange}
+							hintText="Title"
+							floatingLabelText="Title"
+							errorText={this.state.errorTitle}
+						/>
+						<DatePicker 
+							value={this.state.date}
+							onChange={this.onChangeDate}
+							style={{marginLeft: 15}}
+							floatingLabelText="Date"
+							hintText="Portrait Dialog"
+							errorText={this.state.errorDate}
+						/><br />
 					</div>
 					<div Style="width: 100%; display: flex">
-						<TimePicker onChange={this.onChangeStartTime} value={this.state.startTime} format="24hr" hintText="Start Hour" />
-						<TimePicker onChange={this.onChangeEndTime} value={this.state.endTime} style={{marginLeft: 15}} format="24hr" hintText="End Hour" />
+						<TimePicker
+							onChange={this.onChangeStartTime}
+							value={this.state.startTime}
+							format="24hr"
+							hintText="Start Hour"
+							errorText={this.state.errorStartTime}
+						/>
+						<TimePicker 
+							onChange={this.onChangeEndTime}
+							value={this.state.endTime}
+							style={{marginLeft: 15}}
+							format="24hr"
+							hintText="End Hour" 
+							errorText={this.state.errorEndTime}
+						/>
 					</div>
 				</div>	
 				<br />
 			</Dialog>
     	);
 	}
+
+	validFields = (title, date, startTime, endTime) => {
+        let erros = false;
+    
+        if(title === ''){
+            this.setState({ errorTitle: 'Is required' })
+            erros = true;
+        } else {
+			this.setState({ 
+				errorTitle: '',
+			}) 
+		}
+        
+        if(date === ''){
+            this.setState({ errorDate: 'Is required' }) 
+            erros = true;
+        } else {
+            this.setState({ errorDate: '' }) 
+		}
+		
+		if(startTime === ''){
+            this.setState({ errorStartTime: 'Is required' }) 
+            erros = true;
+        } else {
+            this.setState({ errorStartTime: '' }) 
+		}
+		
+		if(endTime === ''){
+            this.setState({ errorEndTime: 'Is required' }) 
+            erros = true;
+        } else {
+            this.setState({ errorEndTime: '' }) 
+		}
+
+        if(!erros){
+			this.setState({open: false})
+			return true;
+		}
+           
+    }
 
 	onChange = (event: Any) => {
         this.setState({[event.target.id]: event.target.value})  
@@ -117,7 +196,6 @@ class MessageBox extends React.Component {
 	}
 
 	onDelete = (id: String) => {
-		console.log(id)
 		this.props.onDeleteAppointments(id);
 	}
 
@@ -144,12 +222,16 @@ class MessageBox extends React.Component {
 			update
 		}
 
-		if(update)
-			this.props.onUpdateAppointments(data);
-		else
-			this.props.onSaveAppointments(data);
+		if(this.validFields(title, date, startTime, endTime)){
+			if(update)
+				this.props.onUpdateAppointments(data);
+			else
+				this.props.onSaveAppointments(data);
 
-		this.handleClose();		
+			this.handleClose();		
+		}
+
+		
 	}
 
 }

@@ -17,10 +17,11 @@ class Main extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        console.log(nextProps)
         if(nextProps.appointments !== undefined){
             if(nextProps.appointments.data !== undefined){
-                this.setState({appointments: nextProps.appointments.data.data})
+                this.setState({
+                    appointments: nextProps.appointments,
+                })
             }
 
             if(nextProps.appointments.lastCreated !== undefined){
@@ -70,13 +71,6 @@ class Main extends Component {
     }
 
     handleUpdateAppointment = (data) => {
-        const teste = {
-            id: data.id,
-            title: data.title,
-            date: new Date(data.date),
-            start_time: data.start_time,
-            end_time: data.end_time
-        }
         const { dispatch } = this.props;
         dispatch(appointmentsActions.updateAppointments(data));
     }
