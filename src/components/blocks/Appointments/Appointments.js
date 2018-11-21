@@ -31,7 +31,12 @@ class Appointments extends React.Component {
                 <h5 style={{fontFamily: 'Muli'}} Style="margin: 0px">Start: {this.props.item.start_time}</h5>
                 <h5 style={{fontFamily: 'Muli'}} Style="margin: 0px">End: {this.props.item.end_time}</h5>
                 <p style={{fontFamily: 'Muli'}} className="title">{this.props.item.title}</p>
-                <MessageBox open={this.state.open} item={this.state.item} onUpdateAppointments={this.updateAppointments} />
+                <MessageBox 
+                    open={this.state.open}
+                    item={this.state.item}
+                    onUpdateAppointments={this.updateAppointments}
+                    onDeleteAppointments={this.deleteAppointments}
+                />
             </div>	
         );
     }
@@ -49,6 +54,10 @@ class Appointments extends React.Component {
 
     updateAppointments = (data: Object) => {
         this.props.onUpdateAppointments(data)
+    }
+
+    deleteAppointments = (id: String) => {
+        this.props.onDeleteAppointments(id)
     }
 
 }

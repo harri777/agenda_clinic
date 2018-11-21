@@ -118,6 +118,30 @@ export const updateAppointments = (data: Object) => (
     }
 );
 
+export const deleteAppointment = (id: String) => (
+    (dispatch: Dispatch) => {
+        dispatch({ type: DELETE_APPOINTMENTS });
+        Api.destroy(`events/${id}`, {
+            header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+        } , true).then
+            (res => {
+                console.log(res)
+                dispatch({
+                    type: DELETE_APPOINTMENTS_SUCCESS,
+                    data: res,
+                });
+            })
+        .catch(error => {
+            console.log(error)
+            dispatch({
+                type: DELETE_APPOINTMENTS_FAILED,
+                error: error,
+            });
+            
+        });
+    }
+);
+
 
 const addSecondsToTimerWithZero = (data: Object) => new Promise((resolve, reject) => {
     let result = [];
@@ -143,7 +167,8 @@ const addSecondsToTimerWithZero = (data: Object) => new Promise((resolve, reject
 export const appointmentsActions = {
     getAppointments,
     createAppointments,
-    updateAppointments
+    updateAppointments,
+    deleteAppointment
 };
 
 export default function appointmentsReducer (state, action): ContextState {
@@ -159,7 +184,8 @@ export default function appointmentsReducer (state, action): ContextState {
             .setIn(['appointments', 'errors'], null)
             .setIn(['appointments', 'data'], action.data)
             .setIn(['appointments', 'lastCreated', 'data'], [])
-            .setIn(['appointments', 'lastUpdated', 'data'], []);
+            .setIn(['appointments', 'lastUpdated', 'data'], [])
+            .setIn(['appointments', 'delete', 'data'], []);
   
         case GET_APPOINTMENTS_FAILED:
             return state
@@ -195,6 +221,22 @@ export default function appointmentsReducer (state, action): ContextState {
             .setIn(['appointments', 'lastUpdated', 'data'], action.data);
   
         case UPDATE_APPOINTMENTS_FAILED:
+            return state
+            .setIn(['appointments', 'isLoading'], false)
+            .setIn(['appointments', 'errors'], [action.error.message]);
+
+        case DELETE_APPOINTMENTS:
+            return state
+            .setIn(['appointments', 'isLoading'], true)
+            .setIn(['appointments', 'errors'], null);
+  
+        case DELETE_APPOINTMENTS_SUCCESS:
+            return state
+            .setIn(['appointments', 'isLoading'], false)
+            .setIn(['appointments', 'errors'], null)
+            .setIn(['appointments', 'delete', 'data'], action.data);
+  
+        case DELETE_APPOINTMENTS_FAILED:
             return state
             .setIn(['appointments', 'isLoading'], false)
             .setIn(['appointments', 'errors'], [action.error.message]);

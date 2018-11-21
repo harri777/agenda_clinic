@@ -116,9 +116,11 @@ class MainView extends React.Component {
     	return (
       		<div className="calendar">
 				<Calendar 
-				  appointments={appointments}
-				  saveAppointments={this.props.onSaveAppointments}
-				  updateAppointments={this.props.onUpdateAppointments}/>
+				  	appointments={appointments}
+				  	saveAppointments={this.props.onSaveAppointments}
+				  	updateAppointments={this.props.onUpdateAppointments}
+				  	deleteAppointments={this.props.onDeleteAppointments} 
+				/>
       		</div>	  
     	);
 	}

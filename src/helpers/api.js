@@ -109,9 +109,8 @@ export function put(path, params = {}) {
 // method is named 'destroy' on purpose since it is not possible to use 'delete'
 export function destroy(path, params = {}) {
   Log.debug('API: delete to ' + path + ' query: ' + stringifyData(params.query || '') + ' data: ' + stringifyData(params.data || ''));
-  return axios.delete(urlApi.value + path, {
-    data: params.data || {}, // hack to keep Content-Type header in request: https://github.com/mzabriskie/axios/issues/86#issuecomment-139638284
-    params: params.query,
+  return axios.delete(urlApi.value + path, {headers: params.header}, {
+    headers: params.header,
   })
     .then((response) => {
       // success callback
@@ -121,6 +120,7 @@ export function destroy(path, params = {}) {
       return response;
     })
     .catch((error) => {
+      console.log(error.response)
       Log.error('Something went wrong with the DELETE call to ' + path + ' :' + stringifyError(error));
       // error callback
       if (params.error) {

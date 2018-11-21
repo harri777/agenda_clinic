@@ -98,7 +98,13 @@ class Calendar extends React.Component {
 						{appointments[formattedDate2] !== undefined && (
 							appointments[formattedDate2].map((item, index) => {
 								return (
-									<Appointments key={index} item={item} edit={this.state.edit} onUpdateAppointments={this.updateAppointments}/>	
+									<Appointments 
+										key={index} 
+										item={item} 
+										edit={this.state.edit} 
+										onUpdateAppointments={this.updateAppointments}
+										onDeleteAppointments={this.deleteAppointments}
+									/>	
 								)}
 							))
 						}
@@ -152,6 +158,10 @@ class Calendar extends React.Component {
 
 	updateAppointments = (data) => {
 		this.props.updateAppointments(data);
+	}
+
+	deleteAppointments = (id) => {
+		this.props.deleteAppointments(id);
 	}
 
 	saveAppointments = (data) => {

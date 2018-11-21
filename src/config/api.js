@@ -1,6 +1,5 @@
- // Descomente para usar API Staging
- const urlApi = {
+const urlApi = {
     value : "http://localhost:9000/"
 }
 
-export default urlApi
+export default urlApi;

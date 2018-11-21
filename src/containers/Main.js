@@ -17,6 +17,7 @@ class Main extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
+        console.log(nextProps)
         if(nextProps.appointments !== undefined){
             if(nextProps.appointments.data !== undefined){
                 this.setState({appointments: nextProps.appointments.data.data})
@@ -33,6 +34,12 @@ class Main extends Component {
                     this.handleGetAppointments();
                 }
             }
+
+            if(nextProps.appointments.delete !== undefined){
+                if(nextProps.appointments.delete.data.data !== undefined){
+                    this.handleGetAppointments();
+                }
+            }
         }
     }
 
@@ -42,7 +49,8 @@ class Main extends Component {
             <MainView 
                 appointments={appointments} 
                 onSaveAppointments={this.handleSaveAppointment}
-                onUpdateAppointments={this.handleUpdateAppointment}/>
+                onUpdateAppointments={this.handleUpdateAppointment}
+                onDeleteAppointments={this.handleDeleteAppointment} />
         )
     }
 
@@ -54,6 +62,11 @@ class Main extends Component {
     handleSaveAppointment = (data) => {
         const { dispatch } = this.props;
         dispatch(appointmentsActions.createAppointments(data));
+    }
+
+    handleDeleteAppointment = (id) => {
+        const { dispatch } = this.props;
+        dispatch(appointmentsActions.deleteAppointment(id));
     }
 
     handleUpdateAppointment = (data) => {

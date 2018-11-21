@@ -52,16 +52,23 @@ class MessageBox extends React.Component {
 		const { open } = this.state;
 		const actions = [
 			<FlatButton
-			  label="Cancel"
-			  primary={true}
-			  onClick={this.handleClose}
+			  	label="Cancel"
+			  	onClick={this.handleClose}
 			/>,
 			<FlatButton
-			  label="SAVE"
-			  primary={true}
-			  keyboardFocused={true}
-			  onClick={this.onSave}
+			  	label="SAVE"
+			  	primary={true}
+			  	keyboardFocused={true}
+			  	onClick={this.onSave}
 			/>,
+			this.state.update ? (
+			<FlatButton
+				style={{left: 0, position: 'absolute'}}
+			  	label="DELETE"
+			  	secondary={true}
+			  	onClick={() => this.onDelete(this.state.id)}
+			/>
+			) : null
 		];
 
     	return (
@@ -107,6 +114,11 @@ class MessageBox extends React.Component {
 		} else {
 			this.setState({endTime})
 		}
+	}
+
+	onDelete = (id: String) => {
+		console.log(id)
+		this.props.onDeleteAppointments(id);
 	}
 
 	handleClose = () => {
