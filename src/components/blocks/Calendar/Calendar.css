@@ -1,4 +1,3 @@
-/* FONT IMPORTS */
 .icon {
   font-family: 'Material Icons', serif;
   font-style: normal;
@@ -16,14 +15,6 @@
   font-feature-settings: 'liga'; }
 
 /* VARIABLES */
-:root {
-  --main-color: #1a8fff;
-  --text-color: #777;
-  --text-color-light: #ccc;
-  --border-color: #eee;
-  --bg-color: #f9f9f9;
-  --neutral-color: #fff; }
-
 /* GENERAL */
 * {
   box-sizing: border-box; }
@@ -33,21 +24,21 @@ body {
   font-size: 1em;
   font-weight: 300;
   line-height: 1.5;
-  color: var(--text-color);
-  background: var(--bg-color);
+  color: #777;
+  background: #f9f9f9;
   position: relative; }
 
 header {
   display: block;
   width: 100%;
   padding: 1.75em 0;
-  border-bottom: 1px solid var(--border-color);
-  background: var(--neutral-color); }
+  border-bottom: 1px solid #eee;
+  background: #fff; }
 
 header #logo {
   font-size: 175%;
   text-align: center;
-  color: var(--main-color);
+  color: #1a8fff;
   line-height: 1; }
 
 header #logo .icon {
@@ -94,15 +85,15 @@ main {
   position: relative;
   overflow-x: hidden;
   width: 100%;
-  background: var(--neutral-color);
-  border: 1px solid var(--border-color); }
+  background: #fff;
+  border: 1px solid #eee; }
 
 .calendar .header {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 115%;
   padding: 1.5em 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #eee;
   padding: 10px; }
 
 .calendar .header .icon {
@@ -112,7 +103,7 @@ main {
 .calendar .header .icon:hover {
   transform: scale(1.75);
   transition: .25s ease-out;
-  color: var(--main-color); }
+  color: #1a8fff; }
 
 .calendar .header .icon:first-of-type {
   margin-left: 1em; }
@@ -123,21 +114,21 @@ main {
 .calendar .days {
   text-transform: uppercase;
   font-weight: 400;
-  color: var(--text-color-light);
+  color: #ccc;
   font-size: 70%;
   padding: .75em 0;
-  border-bottom: 1px solid var(--border-color); }
+  border-bottom: 1px solid #eee; }
 
 .calendar .body .cell {
   position: relative;
   height: 38em;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid #eee;
   overflow: hidden;
-  background: var(--neutral-color);
+  background: #fff;
   transition: 0.25s ease-out; }
 
 .calendar .body .cell:hover {
-  background: var(--bg-color);
+  background: #f9f9f9;
   transition: 0.5s ease-out; }
 
 .calendar .body .selected {
@@ -146,7 +137,7 @@ main {
   border-image-slice: 1; }
 
 .calendar .body .row {
-  border-bottom: 1px solid var(--border-color); }
+  border-bottom: 1px solid #eee; }
 
 .calendar .body .row:last-child {
   border-bottom: none; }
@@ -163,13 +154,13 @@ main {
   font-weight: 700; }
 
 .calendar .body .disabled {
-  color: var(--text-color-light);
+  color: #ccc;
   pointer-events: none; }
 
 .calendar .body .cell .bg {
   font-weight: 700;
   line-height: 1;
-  color: var(--main-color);
+  color: #1a8fff;
   opacity: 0;
   font-size: 8em;
   position: absolute;
@@ -187,3 +178,9 @@ main {
   flex-basis: calc(100%/7);
   width: calc(100%/7);
   overflow-y: auto; }
+
+.floatButton {
+  right: -15px;
+  position: absolute;
+  bottom: 25px;
+  z-index: 9999; }

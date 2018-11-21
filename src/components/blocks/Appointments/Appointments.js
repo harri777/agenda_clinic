@@ -28,9 +28,9 @@ class Appointments extends React.Component {
 
     	return (
             <div className="appointments_container" onClick={() => this.onClick(data)}>
-                <h5 style={{fontFamily: 'Muli'}} Style="margin: 0px">Start: {this.props.item.start_time}</h5>
-                <h5 style={{fontFamily: 'Muli'}} Style="margin: 0px">End: {this.props.item.end_time}</h5>
-                <p style={{fontFamily: 'Muli'}} className="title">{this.props.item.title}</p>
+                <h5 className="_timers">Start: {this.props.item.start_time}</h5>
+                <h5 className="_timers">End: {this.props.item.end_time}</h5>
+                <p className="_timers">{this.props.item.title}</p>
                 <MessageBox 
                     open={this.state.open}
                     item={this.state.item}

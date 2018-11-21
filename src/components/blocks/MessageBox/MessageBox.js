@@ -167,6 +167,13 @@ class MessageBox extends React.Component {
             this.setState({ errorEndTime: '' }) 
 		}
 
+		if(endTime < startTime){
+			this.setState({ errorEndTime: 'End time must be greater than start time' }) 
+            erros = true;
+		} else {
+			this.setState({ errorEndTime: '' }) 
+		}
+
         if(!erros){
 			this.setState({open: false})
 			return true;
@@ -187,12 +194,7 @@ class MessageBox extends React.Component {
 	}
 
 	onChangeEndTime = (e, endTime) => {
-		const { startTime } = this.state;
-		if(endTime < startTime){
-			alert("Hora final não pode ser menor que a hora inicial.")
-		} else {
-			this.setState({endTime})
-		}
+		this.setState({endTime})
 	}
 
 	onDelete = (id: String) => {

@@ -13,6 +13,7 @@ import { Main } from './containers';
 //Components
 import configureStore from './redux/store';
 import WebFont from 'webfontloader';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import fetchInitialState from './redux/initialState';
 import { ConnectedRouter } from "react-router-redux";
 import history from './history';
@@ -27,12 +28,21 @@ WebFont.load({
   }
 });
 
+const muiTheme = getMuiTheme({
+    palette: {
+      primary1Color: '#1a8fff',
+    },
+    appBar: {
+      height: 50,
+    },
+});
+
 
 ReactDOM.render(  
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <div>
-                <MuiThemeProvider>
+                <MuiThemeProvider muiTheme={muiTheme}>
                     <Switch>
                         <Route exact path="/" component={Main}/>
                     </Switch>

@@ -22,7 +22,25 @@ class Calendar extends React.Component {
             this.setState({appointments: nextProps.appointments})
     }
 
-  	renderHeader() {
+  	render() {
+    	return (
+      		<div className="calendar">
+                <div Style="right: -15px; position: absolute; bottom: 25px; z-index: 9999;">
+					<FloatingActionButton onClick={this.onAddNewAppointment}>
+                        <ContentAdd style={{marginTop: -16}}/>
+                    </FloatingActionButton>
+                </div>
+        		{this.renderHeader()}
+        		{this.renderDays()}
+				{this.renderCells()}
+				<MessageBox 
+					open={this.state.open}
+					onSaveAppointments={this.saveAppointments} />
+      		</div>	  
+    	);
+	}
+
+	renderHeader() {
 		const dateFormat = "MMMM YYYY";
 		const dateWeek = "DD/MM/YYYY"
 
@@ -120,7 +138,7 @@ class Calendar extends React.Component {
       		days = [];
     	}
     	return <div className="body">{rows}</div>;
-      }
+    }
       
 
   	nextMonth = () => {
@@ -128,33 +146,17 @@ class Calendar extends React.Component {
 			currentMonth: dateFns.addWeeks(this.state.currentMonth, 1),
 			open: false
     	});
-  	};
+	};
 
-  	prevMonth = () => {
+	prevMonth = () => {
     	this.setState({
 			currentMonth: dateFns.subWeeks(this.state.currentMonth, 1),
 			open: false
 			  
     	});
   	};
+	  
 
-  	render() {
-    	return (
-      		<div className="calendar">
-                <div Style="right: -15px; position: absolute; bottom: 25px; z-index: 9999;">
-					<FloatingActionButton onClick={this.onAddNewAppointment}>
-                        <ContentAdd style={{marginTop: -16}}/>
-                    </FloatingActionButton>
-                </div>
-        		{this.renderHeader()}
-        		{this.renderDays()}
-				{this.renderCells()}
-				<MessageBox 
-					open={this.state.open}
-					onSaveAppointments={this.saveAppointments} />
-      		</div>	  
-    	);
-	}
 
 	updateAppointments = (data) => {
 		this.props.updateAppointments(data);

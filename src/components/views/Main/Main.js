@@ -36,9 +36,15 @@ class MainView extends React.Component {
 			if(nextProps.appointments.errors !== null){
 				this.setState({
 					openToast: true,
-					msgToast: 'OPA! Houve algum problema.',
+					msgToast: 'OPS! There was a problem!',
 					appointments: []
-				})
+				}) 
+			} else {
+				this.setState({
+					openToast: false,
+					msgToast: '',
+					// appointments: []
+				}) 
 			}
 		}
 	}

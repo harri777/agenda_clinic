@@ -122,7 +122,10 @@ export const deleteAppointment = (id: String) => (
     (dispatch: Dispatch) => {
         dispatch({ type: DELETE_APPOINTMENTS });
         Api.destroy(`events/${id}`, {
-            header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+            header: {'Accept': 'application/json', 'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': "*",
+            'crossDomain': true,
+            'Access-Control-Allow-Header': "Origin, X-Requested-With, Content-Type, Accept"}
         } , true).then
             (res => {
                 console.log(res)

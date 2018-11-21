@@ -1,9 +1,11 @@
+@import "../../../assets/variables.scss";
+
 .appointments_container {
     width: 90%;
     margin: 30px 5% 10% 5%;
-    background-color: #ffa50026;
+    background-color: $secondary-color;
     border-radius: 6px;
-    border: solid 1px orange;
+    border: solid 1px $border-secondary-color;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -20,4 +22,10 @@
     font-family: Arial;
     font-size: 15px;
     text-align: -webkit-auto;
+}
+
+._timers {
+    font-family: $main-font;
+    margin: 0px;
+    padding: 0px;
 }
