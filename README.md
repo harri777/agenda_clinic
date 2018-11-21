@@ -13,7 +13,7 @@ This project presents an agenda of commitments.
 
 ## Available Scripts
 
-#### git clone
+#### `git clone`
 
 In the project directory, you can run:
 
