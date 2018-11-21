@@ -25,7 +25,7 @@ class Calendar extends React.Component {
   	render() {
     	return (
       		<div className="calendar">
-                <div Style="right: -15px; position: absolute; bottom: 25px; z-index: 9999;">
+                <div className="float-button">
 					<FloatingActionButton onClick={this.onAddNewAppointment}>
                         <ContentAdd style={{marginTop: -16}}/>
                     </FloatingActionButton>
@@ -35,7 +35,8 @@ class Calendar extends React.Component {
 				{this.renderCells()}
 				<MessageBox 
 					open={this.state.open}
-					onSaveAppointments={this.saveAppointments} />
+					onSaveAppointments={this.saveAppointments} 
+				/>
       		</div>	  
     	);
 	}
@@ -47,19 +48,22 @@ class Calendar extends React.Component {
     	return (
 			<div className="header row flex-middle">
 				<div className="col col-start">
-					<div Style="padding: 10px">
-						<FlatButton onClick={this.prevMonth} style={{fontFamily: 'Muli'}} label="< Previous Week" primary={true} />
+					<div className="arrows-btn">
+						<FlatButton onClick={this.prevMonth} style={{fontFamily: 'Muli'}} label="<" primary={true} />
 					</div>
 				</div>
 				<div className="col col-center">
-					<span style={{fontFamily: 'Muli'}}>{dateFns.format(this.state.currentMonth, dateFormat)}</span><br/>
-					<span style={{fontFamily: 'Muli'}}>{dateFns.format(dateFns.startOfWeek(this.state.currentMonth), dateWeek)}</span>
-					<span> - </span>
-					<span style={{fontFamily: 'Muli'}}>{dateFns.format(dateFns.endOfWeek(this.state.currentMonth), dateWeek)}</span><br/>
+					<span className="center-date" style={{fontFamily: 'Muli'}}>{dateFns.format(this.state.currentMonth, dateFormat)}</span><br/>
+					<div className="div-dates">
+						<span style={{fontFamily: 'Muli'}}>{dateFns.format(dateFns.startOfWeek(this.state.currentMonth), dateWeek)}</span>
+						<span> - </span>
+						<span style={{fontFamily: 'Muli'}}>{dateFns.format(dateFns.endOfWeek(this.state.currentMonth), dateWeek)}</span><br/>
+					</div>
+					
 				</div>
 				<div className="col col-end">
-					<div Style="padding: 10px">
-						<FlatButton style={{fontFamily: 'Muli'}} onClick={this.nextMonth} label="Next Week >" primary={true} />
+					<div className="arrows-btn">
+						<FlatButton style={{fontFamily: 'Muli'}} onClick={this.nextMonth} label=">" primary={true} />
 					</div>
 				</div>
 			</div>
@@ -73,9 +77,10 @@ class Calendar extends React.Component {
     	let startDate = dateFns.startOfWeek(this.state.currentMonth);
 
     	for (let i = 0; i < 7; i++) {
+			let day = dateFns.format(dateFns.addDays(startDate, i), dateFormat);
       		days.push(
         		<div className="col col-center" key={i}>
-          			{dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
+          			{day.substring(0,3)}
         		</div>
       		);
     	}

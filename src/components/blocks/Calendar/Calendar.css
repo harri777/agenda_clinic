@@ -73,7 +73,9 @@ main {
 
 .col-center {
   justify-content: center;
-  text-align: center; }
+  text-align: center;
+  width: calc(100%/7);
+  word-wrap: break-word; }
 
 .col-end {
   justify-content: flex-end;
@@ -86,7 +88,8 @@ main {
   overflow-x: hidden;
   width: 100%;
   background: #fff;
-  border: 1px solid #eee; }
+  border: 1px solid #eee;
+  overflow: hidden; }
 
 .calendar .header {
   text-transform: uppercase;
@@ -126,6 +129,18 @@ main {
   overflow: hidden;
   background: #fff;
   transition: 0.25s ease-out; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+    .calendar .body .cell {
+      height: 29em; } }
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .calendar .body .cell {
+      height: 35em; } }
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .calendar .body .cell {
+      height: 39em; } }
+  @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .calendar .body .cell {
+      height: 32em; } }
 
 .calendar .body .cell:hover {
   background: #f9f9f9;
@@ -179,8 +194,69 @@ main {
   width: calc(100%/7);
   overflow-y: auto; }
 
-.floatButton {
+.float-button {
   right: -15px;
   position: absolute;
   bottom: 25px;
   z-index: 9999; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+    .float-button {
+      right: -50px; } }
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .float-button {
+      right: -50px; } }
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .float-button {
+      right: -50px; } }
+  @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .float-button {
+      right: -50px; } }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .div-dates {
+    font-size: 10px;
+    display: flex;
+    margin-top: -12px;
+    margin-left: -15px; } }
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  .div-dates {
+    font-size: 13px;
+    display: flex;
+    margin-top: -12px; } }
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+  .div-dates {
+    font-size: 13px;
+    display: flex;
+    margin-top: -12px; } }
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+  .div-dates {
+    font-size: 10px;
+    display: flex;
+    margin-top: -12px;
+    margin-left: 5px; } }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .center-date {
+    font-size: 10px;
+    display: flex; } }
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  .center-date {
+    font-size: 14px;
+    display: flex; } }
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+  .center-date {
+    font-size: 14px;
+    display: flex; } }
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+  .center-date {
+    font-size: 14px;
+    display: flex; } }
+
+.arrows-btn {
+  padding: 10px; }

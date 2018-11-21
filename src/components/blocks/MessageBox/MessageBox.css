@@ -1,0 +1,41 @@
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+  .container-modal {
+    font-size: 10px;
+    display: flex;
+    margin-top: -12px;
+    margin-left: -15px; } }
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  .container-modal {
+    font-size: 13px;
+    display: flex;
+    margin-top: -12px; } }
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+  .container-modal {
+    font-size: 13px;
+    display: flex;
+    margin-top: -12px; } }
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+  .container-modal {
+    font-size: 10px;
+    display: flex;
+    margin-top: -12px;
+    margin-left: 5px; } }
+
+.timers-picker-container {
+  width: 100%;
+  display: flex; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+    .timers-picker-container {
+      flex-direction: column; } }
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .timers-picker-container {
+      flex-direction: column; } }
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .timers-picker-container {
+      flex-direction: column; } }
+  @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .timers-picker-container {
+      flex-direction: column; } }

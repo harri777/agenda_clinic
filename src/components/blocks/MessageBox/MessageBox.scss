@@ -1,0 +1,54 @@
+.container-modal {
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		font-size: 10px;
+		display: flex;
+		margin-top: -12px;
+		margin-left: -15px;
+	}
+
+	// Iphone 6 portrait & landscape
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		font-size: 13px;
+		display: flex;
+		margin-top: -12px;
+	}
+
+	// Iphone 6 plus portrait & landscape
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		font-size: 13px;
+		display: flex;
+		margin-top: -12px;
+	}
+
+	// Galaxy S5 +
+	@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+		font-size: 10px;
+		display: flex;
+		margin-top: -12px;
+		margin-left: 5px;
+    }
+}
+
+.timers-picker-container {
+    width: 100%;
+    display: flex;
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		flex-direction: column;
+	}
+
+	// Iphone 6 portrait & landscape
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		flex-direction: column;
+	}
+
+	// Iphone 6 plus portrait & landscape
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		flex-direction: column;
+	}
+
+	// Galaxy S5 +
+	@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+		flex-direction: column;
+    }
+}

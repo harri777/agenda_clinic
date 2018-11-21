@@ -93,33 +93,37 @@ class MessageBox extends React.Component {
 				onRequestClose={this.handleClose}
 			>
 				<div id="container" Style="overflow: hidden">
-					<div Style="width: 100%; display: flex">
+					<div className="timers-picker-container">
 						<TextField 
 							id="title"
 							value={this.state.title}
 							onChange={this.onChange}
 							hintText="Title"
 							floatingLabelText="Title"
+							style={{marginLeft: 15}}
 							errorText={this.state.errorTitle}
 						/>
 						<DatePicker 
 							value={this.state.date}
 							onChange={this.onChangeDate}
-							style={{marginLeft: 15}}
+							// style={{marginLeft: 15}}
 							floatingLabelText="Date"
+							style={{marginLeft: 15}}
 							hintText="Portrait Dialog"
 							errorText={this.state.errorDate}
-						/><br />
+						/>
 					</div>
-					<div Style="width: 100%; display: flex">
+					<div className="timers-picker-container">
 						<TimePicker
 							onChange={this.onChangeStartTime}
 							value={this.state.startTime}
 							format="24hr"
+							style={{marginLeft: 15}}
 							hintText="Start Hour"
 							errorText={this.state.errorStartTime}
 						/>
 						<TimePicker 
+							// Style="margin-left: 15px"
 							onChange={this.onChangeEndTime}
 							value={this.state.endTime}
 							style={{marginLeft: 15}}
@@ -129,7 +133,6 @@ class MessageBox extends React.Component {
 						/>
 					</div>
 				</div>	
-				<br />
 			</Dialog>
     	);
 	}

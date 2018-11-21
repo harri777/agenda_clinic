@@ -100,7 +100,9 @@ main {
   
 .col-center {
     justify-content: center;
-    text-align: center;
+	text-align: center;
+	width: calc(100%/7);
+    word-wrap: break-word;
 }
   
 .col-end {
@@ -116,7 +118,8 @@ main {
     overflow-x: hidden;
     width: 100%;
     background: $neutral-color;
-    border: 1px solid $border-color;
+	border: 1px solid $border-color;
+	overflow: hidden;
 }
   
 .calendar .header {
@@ -162,7 +165,27 @@ main {
     border-right: 1px solid $border-color;
     overflow: hidden;
     background: $neutral-color;
-    transition: 0.25s ease-out;
+	transition: 0.25s ease-out;
+	
+	// iPhone 5 & 5S in portrait & landscape
+	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		height: 29em;
+	}
+
+	// Iphone 6 portrait & landscape
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		height: 35em;
+	}
+
+	// Iphone 6 plus portrait & landscape
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		height: 39em;
+	}
+
+	// Galaxy S5 +
+	@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+		height: 32em;
+	}
 }
   
 .calendar .body .cell:hover {
@@ -227,9 +250,98 @@ main {
     overflow-y: auto;
 }
 
-.floatButton {
+.float-button {
 	right: -15px;
 	position: absolute;
 	bottom: 25px;
 	z-index: 9999;
+
+
+	
+	// iPhone 5 & 5S in portrait & landscape
+	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		right: -50px;
+		// bottom: 170px;
+	}
+
+	// Iphone 6 portrait & landscape
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		right: -50px;
+		// bottom: 70px;
+	}
+
+	// Iphone 6 plus portrait & landscape
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		right: -50px;
+		// bottom: 10px;
+	}
+
+	// Galaxy S5 +
+	@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+		right: -50px;
+		// bottom: 110px;
+	}
+	
+}
+
+.div-dates {
+	// iPhone 5 & 5S in portrait & landscape
+	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		font-size: 10px;
+		display: flex;
+		margin-top: -12px;
+		margin-left: -15px;
+	}
+
+	// Iphone 6 portrait & landscape
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		font-size: 13px;
+		display: flex;
+		margin-top: -12px;
+	}
+
+	// Iphone 6 plus portrait & landscape
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		font-size: 13px;
+		display: flex;
+		margin-top: -12px;
+	}
+
+	// Galaxy S5 +
+	@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+		font-size: 10px;
+		display: flex;
+		margin-top: -12px;
+		margin-left: 5px;
+	}
+}
+
+.center-date {
+	// iPhone 5 & 5S in portrait & landscape
+	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		font-size: 10px;
+		display: flex;
+	}
+
+	// Iphone 6 portrait & landscape
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		font-size: 14px;
+		display: flex;
+	}
+
+	// Iphone 6 plus portrait & landscape
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		font-size: 14px;
+		display: flex;
+	}
+
+	// Galaxy S5 +
+	@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+		font-size: 14px;
+		display: flex;
+	}
+}
+
+.arrows-btn {
+	padding: 10px;
 }

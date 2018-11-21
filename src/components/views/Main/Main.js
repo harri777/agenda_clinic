@@ -52,7 +52,7 @@ class MainView extends React.Component {
   	render() {
 		const { appointments, isLoading, openToast, msgToast } = this.state;
     	return (
-      		<div className="calendar">
+      		<div>
 				{isLoading &&
 					<Loader />
 				}

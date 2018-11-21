@@ -23,4 +23,7 @@
 ._timers {
   font-family: "Muli";
   margin: 0px;
-  padding: 0px; }
+  padding: 0px;
+  white-space: nowrap;
+  text-overflow: clip;
+  overflow: hidden; }
